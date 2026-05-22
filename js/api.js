@@ -8,7 +8,7 @@ const API = (() => {
   const PROVIDERS = {
     deepseek: {
       name: 'DeepSeek',
-      baseUrl: 'https://api.deepseek.com/v1/chat/completions',
+      baseUrl: 'https://api.deepseek.com/chat/completions',
       models: ['deepseek-v4-flash', 'deepseek-v4-pro'],
       defaultModel: 'deepseek-v4-flash',
       authHeader: 'Authorization',
