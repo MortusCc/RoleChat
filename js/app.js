@@ -292,8 +292,8 @@ const App = (() => {
         <div class="msg-actions">
           ${msg.role === 'ai' ? `<button data-action="regenerate" title="重新生成"><svg class="icon" viewBox="0 0 48 48" fill="none"><path d="M13 35H7V41" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M41 41H35V35" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M35 13H41V7" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 7H13V13" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M13 7.29395C7.57778 10.8714 4 17.0178 4 23.9999C4 25.0195 4.0763 26.0213 4.2235 26.9999" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M26.9999 43.7765C26.0213 43.9237 25.0195 44 23.9999 44C17.0178 44 10.8714 40.4222 7.29395 35" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M43.7765 21C43.9237 21.9786 44 22.9804 44 24C44 30.9821 40.4222 37.1285 35 40.706" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 4.2235C21.9786 4.0763 22.9804 4 24 4C30.9821 4 37.1285 7.57778 40.706 13" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>` : ''}
           <button data-action="copy" title="复制"><svg class="icon" viewBox="0 0 48 48" fill="none"><path d="M13 12.4316V7.8125C13 6.2592 14.2592 5 15.8125 5H40.1875C41.7408 5 43 6.2592 43 7.8125V32.1875C43 33.7408 41.7408 35 40.1875 35H35.5163" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M32.1875 13H7.8125C6.2592 13 5 14.2592 5 15.8125V40.1875C5 41.7408 6.2592 43 7.8125 43H32.1875C33.7408 43 35 41.7408 35 40.1875V15.8125C35 14.2592 33.7408 13 32.1875 13Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/></svg></button>
-          <button data-action="like" title="点赞"><svg class="icon" viewBox="0 0 48 48" fill="none"><path d="M27.6002 18.5998V11.3998C27.6002 8.41743 25.1826 5.99977 22.2002 5.99977L15.0002 22.1998V41.9998H35.9162C37.7113 42.0201 39.2471 40.7147 39.5162 38.9398L42.0002 22.7398C42.1587 21.6955 41.8506 20.6343 41.1576 19.8373C40.4645 19.0403 39.4564 18.5878 38.4002 18.5998H27.6002Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/><path d="M15 22.0001H10.194C8.08532 21.9628 6.2827 23.7095 6 25.7994V38.3994C6.2827 40.4894 8.08532 42.0367 10.194 41.9994H15V22.0001Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/></svg></button>
-          <button data-action="dislike" title="踩"><svg class="icon" viewBox="0 0 48 48" fill="none"><path d="M20.3793 29.4002V36.6002C20.3793 39.5826 22.7969 42.0002 25.7793 42.0002L32.9793 25.8002V6.00023H12.0633C10.2682 5.97994 8.73244 7.2853 8.46327 9.06023L5.97927 25.2602C5.82077 26.3045 6.12885 27.3657 6.82192 28.1627C7.51499 28.9597 8.52311 29.4122 9.57927 29.4002H20.3793Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/><path d="M32.9795 6.00017H37.7855C39.8942 5.96288 41.6968 7.51019 41.9795 9.60017V22.2002C41.6968 24.2901 39.8942 26.0375 37.7855 26.0002H32.9795V6.00017Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/></svg></button>
+          ${msg.role === 'ai' ? `<button data-action="like" title="点赞"><svg class="icon" viewBox="0 0 48 48" fill="none"><path d="M27.6002 18.5998V11.3998C27.6002 8.41743 25.1826 5.99977 22.2002 5.99977L15.0002 22.1998V41.9998H35.9162C37.7113 42.0201 39.2471 40.7147 39.5162 38.9398L42.0002 22.7398C42.1587 21.6955 41.8506 20.6343 41.1576 19.8373C40.4645 19.0403 39.4564 18.5878 38.4002 18.5998H27.6002Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/><path d="M15 22.0001H10.194C8.08532 21.9628 6.2827 23.7095 6 25.7994V38.3994C6.2827 40.4894 8.08532 42.0367 10.194 41.9994H15V22.0001Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/></svg></button>` +
+                     `<button data-action="dislike" title="踩"><svg class="icon" viewBox="0 0 48 48" fill="none"><path d="M20.3793 29.4002V36.6002C20.3793 39.5826 22.7969 42.0002 25.7793 42.0002L32.9793 25.8002V6.00023H12.0633C10.2682 5.97994 8.73244 7.2853 8.46327 9.06023L5.97927 25.2602C5.82077 26.3045 6.12885 27.3657 6.82192 28.1627C7.51499 28.9597 8.52311 29.4122 9.57927 29.4002H20.3793Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/><path d="M32.9795 6.00017H37.7855C39.8942 5.96288 41.6968 7.51019 41.9795 9.60017V22.2002C41.6968 24.2901 39.8942 26.0375 37.7855 26.0002H32.9795V6.00017Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/></svg></button>` : ''}
         </div>
       </div>
     `).join('');
@@ -688,12 +688,20 @@ const App = (() => {
             .then(() => showToast('已复制'))
             .catch(() => showToast('复制失败'));
           break;
-        case 'like':
-          showToast('已点赞');
+        case 'like': {
+          const dislikeBtn = bubble.querySelector('[data-action="dislike"]');
+          btn.classList.toggle('liked');
+          if (dislikeBtn) dislikeBtn.classList.remove('disliked');
+          showToast(btn.classList.contains('liked') ? '已点赞' : '取消点赞');
           break;
-        case 'dislike':
-          showToast('已踩');
+        }
+        case 'dislike': {
+          const likeBtn = bubble.querySelector('[data-action="like"]');
+          btn.classList.toggle('disliked');
+          if (likeBtn) likeBtn.classList.remove('liked');
+          showToast(btn.classList.contains('disliked') ? '已踩' : '取消踩');
           break;
+        }
       }
     });
 

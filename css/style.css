@@ -326,6 +326,28 @@ body {
   height: 14px;
 }
 
+/* 点赞激发态 */
+.msg-actions button.liked {
+  opacity: 1;
+  color: var(--color-primary);
+}
+.msg-actions button.liked .icon path,
+.msg-actions button.liked .icon circle {
+  fill: var(--color-primary);
+  stroke: none;
+}
+
+/* 踩激发态 */
+.msg-actions button.disliked {
+  opacity: 1;
+  color: var(--color-danger);
+}
+.msg-actions button.disliked .icon path,
+.msg-actions button.disliked .icon circle {
+  fill: var(--color-danger);
+  stroke: none;
+}
+
 /* ---------- Input Area ---------- */
 .input-area {
   display: flex;
