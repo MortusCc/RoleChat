@@ -5,9 +5,8 @@
 ## 技术栈
 
 - **前端**：HTML / CSS / JavaScript（原生，无框架）
-- **API**：DeepSeek Chat Completion API（流式输出 SSE）
-- **代理**：Vercel Serverless Functions
-- **部署**：Vercel / Netlify
+- **API**：DeepSeek Chat Completion API（流式输出 SSE，前端直连）
+- **部署**：GitHub Pages
 
 ## 项目结构
 
@@ -43,7 +42,9 @@ RoleChat/
 
 ## 快速开始
 
-1. 在 Vercel 配置环境变量 `DEEPSEEK_API_KEY`
-2. 部署 `api/chat.js` 为 Serverless Function
-3. 静态文件部署至 Vercel / Netlify
-4. 访问公开 URL
+1. 访问线上地址（GitHub Pages）：`https://mortuscc.github.io/RoleChat/`
+2. 底部「我的」→ 服务商选 DeepSeek，填入 API Key
+3. 选择预设模板或自定义创建角色
+4. 开始对话
+
+> 本地运行：`python -m http.server 3000`，浏览器打开 `http://localhost:3000`
