@@ -124,7 +124,7 @@ body {
 .icon-btn .icon {
   width: var(--icon-size);
   height: var(--icon-size);
-  stroke: var(--color-icon-default);
+  color: var(--color-icon-default);
   stroke-width: var(--icon-stroke);
   fill: none;
   stroke-linecap: round;
@@ -132,11 +132,11 @@ body {
 }
 
 .icon-btn:disabled .icon {
-  stroke: var(--color-icon-disabled);
+  color: var(--color-icon-disabled);
 }
 
 .send-btn .icon {
-  stroke: var(--color-icon-active);
+  color: var(--color-icon-active);
 }
 
 /* ---------- Search Bar ---------- */
@@ -154,7 +154,7 @@ body {
 .search-bar .icon-search {
   width: 18px;
   height: 18px;
-  stroke: var(--color-text-secondary);
+  color: var(--color-text-secondary);
   stroke-width: var(--icon-stroke);
   fill: none;
   stroke-linecap: round;
@@ -387,7 +387,7 @@ body {
 .icon-label {
   width: 18px;
   height: 18px;
-  stroke: var(--color-icon-default);
+  color: var(--color-icon-default);
   stroke-width: var(--icon-stroke);
   fill: none;
   stroke-linecap: round;
@@ -431,7 +431,7 @@ body {
 .btn-primary .icon {
   width: 20px;
   height: 20px;
-  stroke: #fff;
+  color: #fff;
   stroke-width: var(--icon-stroke);
   fill: none;
   stroke-linecap: round;
@@ -514,7 +514,7 @@ body {
 .nav-item .nav-icon {
   width: 24px;
   height: 24px;
-  stroke: var(--color-icon-default);
+  color: var(--color-icon-default);
   stroke-width: var(--icon-stroke);
   fill: none;
   stroke-linecap: round;
@@ -524,7 +524,14 @@ body {
 .nav-item.active,
 .nav-item.active .nav-icon {
   color: var(--color-icon-active);
-  stroke: var(--color-icon-active);
+}
+
+/* 导航活跃态图标填充（默认态描边 → 活跃态填充主色） */
+.nav-item.active .nav-icon path,
+.nav-item.active .nav-icon circle,
+.nav-item.active .nav-icon rect {
+  fill: var(--color-icon-active);
+  stroke: none;
 }
 
 /* ---------- Popup Menu ---------- */
@@ -557,7 +564,7 @@ body {
 .popup-menu button .icon {
   width: 18px;
   height: 18px;
-  stroke: var(--color-icon-default);
+  color: var(--color-icon-default);
   stroke-width: var(--icon-stroke);
   fill: none;
   stroke-linecap: round;
