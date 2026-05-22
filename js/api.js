@@ -9,8 +9,8 @@ const API = (() => {
     deepseek: {
       name: 'DeepSeek',
       baseUrl: 'https://api.deepseek.com/v1/chat/completions',
-      models: ['deepseek-chat', 'deepseek-reasoner'],
-      defaultModel: 'deepseek-chat',
+      models: ['deepseek-v4-flash', 'deepseek-v4-pro'],
+      defaultModel: 'deepseek-v4-flash',
       authHeader: 'Authorization',
       authPrefix: 'Bearer '
     },
@@ -67,6 +67,8 @@ const API = (() => {
     authHeader: PROVIDERS.deepseek.authHeader,
     authPrefix: PROVIDERS.deepseek.authPrefix
   };
+  // 注: deepseek-chat / deepseek-reasoner 将于 2026/07/24 弃用
+  // 当前预设使用 deepseek-v4-flash / deepseek-v4-pro
 
   // ===================== 配置读写 =====================
   function getConfig() {
@@ -168,7 +170,7 @@ const API = (() => {
             [config.authHeader]: config.authPrefix + config.apiKey
           },
           body: JSON.stringify({
-            model: config.model || 'deepseek-chat',
+            model: config.model || 'deepseek-v4-flash',
             messages: messages,
             stream: true
           }),
