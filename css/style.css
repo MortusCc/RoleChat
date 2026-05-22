@@ -702,6 +702,78 @@ body {
   color: var(--color-primary);
 }
 
+/* ---------- 发现页 - 预设模板 ---------- */
+.discover-subtitle {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  text-align: center;
+  padding: 12px 0 6px;
+}
+
+.preset-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 0 14px;
+}
+
+.preset-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: 16px 14px;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  border-left: 3px solid var(--card-accent);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.preset-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.preset-card:active { transform: translateY(0); }
+
+.preset-emoji {
+  font-size: 2rem;
+  margin-bottom: 8px;
+  line-height: 1;
+}
+
+.preset-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--color-text);
+}
+
+.preset-worldview {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+
+.preset-meta {
+  font-size: 0.7rem;
+  color: var(--color-icon-default);
+  background: var(--color-bg);
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.discover-footer {
+  text-align: center;
+  padding: 20px 14px;
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+
+.discover-footer a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.discover-footer a:hover { text-decoration: underline; }
+
 /* ---------- 响应式 (Tablet / Desktop) ---------- */
 @media (min-width: 768px) {
   body {

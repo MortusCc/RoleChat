@@ -45,6 +45,91 @@ const App = (() => {
     return Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
   }
 
+  // ===================== 预设角色模板 =====================
+  const PRESET_ROLES = [
+    {
+      id: 'preset-1',
+      emoji: '🧙',
+      worldview: '中世纪的魔法大陆，龙与骑士并存，魔法学院培养年轻法师，黑暗势力正在悄悄蔓延。',
+      aiName: '老法师梅林',
+      aiPersona: '睿智、幽默、偶尔卖关子。说话带古英语腔，喜欢用谜语回答问题。',
+      userIdentity: '年轻的魔法学徒',
+      color: '#7C3AED'
+    },
+    {
+      id: 'preset-2',
+      emoji: '🤖',
+      worldview: '2077 年，新东京。巨型企业掌控一切，霓虹灯下黑客与义体人穿梭于数据洪流。',
+      aiName: 'Ghost',
+      aiPersona: '顶级黑客，冷漠但可靠。说话简洁，带电子术语。厌恶企业官僚。',
+      userIdentity: '刚觉醒的义体人，被企业追杀',
+      color: '#06B6D4'
+    },
+    {
+      id: 'preset-3',
+      emoji: '⛩️',
+      worldview: '修仙大世界，万族林立。修士以灵气淬体，渡劫飞升是为终极追求。',
+      aiName: '青玄真人',
+      aiPersona: '仙风道骨，说话半文半白。看似冷淡实则护短，偶尔蹦出网络用语。',
+      userIdentity: '刚入门的筑基期弟子',
+      color: '#10B981'
+    },
+    {
+      id: 'preset-4',
+      emoji: '🔍',
+      worldview: '维多利亚时代的伦敦，蒸汽与谜案交织。你所在的私家侦探社专接警方不愿碰的案子。',
+      aiName: '阿瑟·布莱克',
+      aiPersona: '退役警探，逻辑推演极强。烟斗不离手，说话带英式冷幽默。',
+      userIdentity: '侦探社的助手兼记录员',
+      color: '#8B5CF6'
+    },
+    {
+      id: 'preset-5',
+      emoji: '🚀',
+      worldview: '深空探索时代，人类殖民银河系边缘。未知信号从黑洞方向传来。',
+      aiName: 'NOVA',
+      aiPersona: '飞船 AI，理性和微妙的幽默感。偶尔质疑人类的情绪化决策。',
+      userIdentity: '星际飞船的指挥官',
+      color: '#F59E0B'
+    },
+    {
+      id: 'preset-6',
+      emoji: '📚',
+      worldview: '普通的高中校园。你刚转学到一个新城市，一切陌生又新鲜。',
+      aiName: '林小棠',
+      aiPersona: '活泼开朗的同桌，喜欢八卦和画画。说话俏皮，偶尔毒舌但心地善良。',
+      userIdentity: '刚转学的高二学生',
+      color: '#EC4899'
+    }
+  ];
+
+  /** 从预设模板创建角色并保存 */
+  function adoptPreset(index) {
+    const p = PRESET_ROLES[index];
+    if (!p) return;
+
+    // 已有的同名预设角色不重复创建
+    const existing = state.roles.find(r => r._presetId === p.id);
+    if (existing) {
+      newChatFromRole(existing.id);
+      return;
+    }
+
+    const role = {
+      id: genId(),
+      _presetId: p.id,
+      worldview: p.worldview,
+      aiName: p.aiName,
+      aiPersona: p.aiPersona,
+      userIdentity: p.userIdentity,
+      createdAt: Date.now()
+    };
+
+    state.roles.unshift(role);
+    saveRoles();
+    newChatFromRole(role.id);
+  }
+
   // ===================== 页面路由 =====================
   function navigateTo(pageName) {
     // 隐藏所有页面
@@ -66,7 +151,7 @@ const App = (() => {
       case 'chat-room': break;
       case 'role-manage': renderRoleList(); break;
       case 'role-create': break;
-      case 'discover': break;
+      case 'discover': renderDiscover(); break;
       case 'profile': updateProfile(); break;
     }
   }
@@ -399,6 +484,43 @@ const App = (() => {
           case 'delete-role': deleteRole(id); break;
         }
       });
+    });
+  }
+
+  // ===================== 发现页 =====================
+  function renderDiscover() {
+    const container = document.getElementById('discover-container');
+    if (!container) return;
+
+    container.innerHTML = `
+      <p class="discover-subtitle">选择一个预设世界观，即刻开始角色扮演</p>
+      <div class="preset-grid">
+        ${PRESET_ROLES.map((p, i) => `
+          <div class="preset-card" data-preset-idx="${i}" style="--card-accent: ${p.color}">
+            <div class="preset-emoji">${p.emoji}</div>
+            <div class="preset-name">${escHtml(p.aiName)}</div>
+            <div class="preset-worldview">${escHtml(p.worldview.slice(0, 48))}...</div>
+            <div class="preset-meta">你将扮演：${escHtml(p.userIdentity)}</div>
+          </div>
+        `).join('')}
+      </div>
+      <div class="discover-footer">
+        <p>以上为预设模板。想要自己设定？<a href="#" id="link-custom-role">前往角色创建 →</a></p>
+      </div>
+    `;
+
+    // 点击预设卡片
+    container.querySelectorAll('.preset-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const idx = parseInt(card.dataset.presetIdx);
+        adoptPreset(idx);
+      });
+    });
+
+    // 跳转自定义
+    document.getElementById('link-custom-role')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      navigateTo('role-create');
     });
   }
 
