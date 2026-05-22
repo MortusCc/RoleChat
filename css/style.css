@@ -526,14 +526,6 @@ body {
   color: var(--color-icon-active);
 }
 
-/* 导航活跃态图标填充（默认态描边 → 活跃态填充主色） */
-.nav-item.active .nav-icon path,
-.nav-item.active .nav-icon circle,
-.nav-item.active .nav-icon rect {
-  fill: var(--color-icon-active);
-  stroke: none;
-}
-
 /* ---------- Popup Menu ---------- */
 .popup-menu {
   position: fixed;
