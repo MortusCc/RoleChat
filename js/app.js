@@ -524,6 +524,36 @@ const App = (() => {
     });
   }
 
+  // ===================== 新建对话面板 =====================
+  function showNewChatPanel() {
+    const panel = document.getElementById('new-chat-panel');
+    const grid = document.getElementById('panel-preset-grid');
+    if (!panel || !grid) return;
+
+    // 渲染预设选项（紧凑卡片）
+    grid.innerHTML = PRESET_ROLES.map((p, i) => `
+      <div class="panel-preset-item" data-preset-idx="${i}" style="--card-accent: ${p.color}">
+        <span class="panel-preset-emoji">${p.emoji}</span>
+        <span class="panel-preset-name">${escHtml(p.aiName)}</span>
+      </div>
+    `).join('');
+
+    // 预设点击
+    grid.querySelectorAll('.panel-preset-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const idx = parseInt(item.dataset.presetIdx);
+        closeNewChatPanel();
+        adoptPreset(idx);
+      });
+    });
+
+    panel.classList.remove('hidden');
+  }
+
+  function closeNewChatPanel() {
+    document.getElementById('new-chat-panel')?.classList.add('hidden');
+  }
+
   // ===================== 我的 =====================
   function updateProfile() {
     document.getElementById('chat-count').textContent = state.chats.length;
@@ -609,14 +639,9 @@ const App = (() => {
       });
     }
 
-    // 新建对话
+    // 新建对话 → 弹出选择面板
     document.getElementById('btn-new-chat')?.addEventListener('click', () => {
-      state.editingRoleId = null;
-      document.getElementById('role-create-title').textContent = '新建角色';
-      // 清空表单
-      ['role-worldview', 'role-ai-name', 'role-ai-persona', 'role-user-identity']
-        .forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
-      navigateTo('role-create');
+      showNewChatPanel();
     });
 
     // 对话界面 - 返回
@@ -790,6 +815,23 @@ const App = (() => {
         authPrefix: API.PROVIDERS[provider]?.authPrefix || 'Bearer '
       };
       testApiConnection(testCfg);
+    });
+
+    // ===== 新建对话面板 =====
+    document.getElementById('btn-custom-create')?.addEventListener('click', () => {
+      closeNewChatPanel();
+      state.editingRoleId = null;
+      document.getElementById('role-create-title').textContent = '新建角色';
+      ['role-worldview', 'role-ai-name', 'role-ai-persona', 'role-user-identity']
+        .forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+      navigateTo('role-create');
+    });
+
+    document.getElementById('btn-close-panel')?.addEventListener('click', closeNewChatPanel);
+
+    // 点击面板遮罩关闭
+    document.getElementById('new-chat-panel')?.addEventListener('click', (e) => {
+      if (e.target === e.currentTarget) closeNewChatPanel();
     });
 
     // 点击其他地方关闭弹窗

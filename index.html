@@ -226,6 +226,22 @@
     </button>
   </div>
 
+  <!-- 新建对话选择面板 -->
+  <div id="new-chat-panel" class="overlay-panel hidden">
+    <div class="panel-card">
+      <h3>新建对话</h3>
+      <p class="panel-subtitle">选择预设模板或自定义创建</p>
+      <div class="panel-preset-grid" id="panel-preset-grid">
+        <!-- 动态渲染 -->
+      </div>
+      <div class="panel-divider"><span>或</span></div>
+      <button id="btn-custom-create" class="btn-primary panel-btn">
+        自定义创建角色
+      </button>
+      <button id="btn-close-panel" class="btn-text panel-close">取消</button>
+    </div>
+  </div>
+
   <script src="js/api.js"></script>
   <script src="js/app.js"></script>
 </body>
