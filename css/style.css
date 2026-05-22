@@ -296,39 +296,31 @@ body {
 }
 
 .message-bubble .msg-actions {
-  display: none;
-}
-
-.message-bubble:hover .msg-actions,
-.message-bubble.long-press .msg-actions {
   display: flex;
-  position: absolute;
-  bottom: -28px;
-  right: 0;
-  gap: 4px;
-  background: var(--color-surface);
-  padding: 2px 4px;
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-md);
-  z-index: 5;
+  gap: 2px;
+  margin-top: 6px;
+  padding-top: 4px;
+  border-top: 1px solid rgba(0,0,0,0.06);
 }
 
-.message-bubble.ai .msg-actions { right: auto; left: 0; }
+.message-bubble.ai .msg-actions { justify-content: flex-start; }
+.message-bubble.user .msg-actions { justify-content: flex-end; }
 
 .msg-actions button {
-  padding: 4px 8px;
+  padding: 3px 6px;
   border: none;
   background: transparent;
-  font-size: 0.75rem;
   color: var(--color-text-secondary);
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 2px;
   border-radius: 4px;
+  opacity: 0.6;
+  transition: opacity 0.15s;
 }
 
-.msg-actions button:hover { background: rgba(0,0,0,0.05); }
+.msg-actions button:hover { background: rgba(0,0,0,0.05); opacity: 1; }
 .msg-actions button .icon {
   width: 14px;
   height: 14px;
@@ -343,7 +335,7 @@ body {
   border-top: 1px solid var(--color-border);
   gap: 8px;
   position: sticky;
-  bottom: var(--nav-height);
+  bottom: 0;
 }
 
 .input-area input {
