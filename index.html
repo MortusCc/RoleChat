@@ -123,6 +123,7 @@
         <h1>我的</h1>
       </header>
       <div class="list-container">
+        <!-- 统计 -->
         <div class="profile-section">
           <div class="profile-item">
             <span>API 状态</span>
@@ -136,9 +137,51 @@
             <span>角色数量</span>
             <span id="role-count">0</span>
           </div>
-          <div class="profile-item">
-            <span>API Key 配置</span>
-            <input type="password" id="api-key-input" placeholder="输入 API Key...">
+        </div>
+
+        <!-- API 服务商配置 -->
+        <div class="api-config-section">
+          <h3 class="section-title">API 配置</h3>
+
+          <div class="form-group">
+            <label>服务商</label>
+            <select id="api-provider">
+              <option value="deepseek">DeepSeek</option>
+              <option value="openai">OpenAI</option>
+              <option value="moonshot">Moonshot（月之暗面）</option>
+              <option value="zhipu">智谱 GLM</option>
+              <option value="qwen">通义千问</option>
+              <option value="custom">自定义</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Base URL</label>
+            <input type="url" id="api-base-url" placeholder="https://api.deepseek.com/v1/chat/completions">
+            <span class="form-hint" id="hint-base-url">服务商预设已自动填充</span>
+          </div>
+
+          <div class="form-group">
+            <label>API Key</label>
+            <input type="password" id="api-key" placeholder="sk-...">
+            <span class="form-hint">密钥仅保存在本地浏览器</span>
+          </div>
+
+          <div class="form-group">
+            <label>模型名称</label>
+            <div class="model-select-row">
+              <select id="api-model-preset">
+                <option value="">-- 选择预设模型 --</option>
+              </select>
+              <span class="form-hint" style="margin:0 4px;">或</span>
+              <input type="text" id="api-model-custom" placeholder="自定义模型名">
+            </div>
+            <span class="form-hint">预设下拉选择，也可直接输入</span>
+          </div>
+
+          <div class="form-group">
+            <button id="btn-test-api" class="btn-secondary">检测连接</button>
+            <button id="btn-save-api" class="btn-primary">保存配置</button>
           </div>
         </div>
       </div>

@@ -407,10 +407,51 @@ const App = (() => {
     document.getElementById('chat-count').textContent = state.chats.length;
     document.getElementById('role-count').textContent = state.roles.length;
 
-    const key = API.getApiKey();
-    const keyInput = document.getElementById('api-key-input');
-    if (keyInput && !keyInput.value) {
-      keyInput.value = key;
+    // 填充 API 配置表单
+    const config = API.getConfig();
+    const providerEl = document.getElementById('api-provider');
+    const baseUrlEl = document.getElementById('api-base-url');
+    const keyEl = document.getElementById('api-key');
+    const modelPresetEl = document.getElementById('api-model-preset');
+    const modelCustomEl = document.getElementById('api-model-custom');
+
+    if (providerEl) providerEl.value = config.provider || 'deepseek';
+    if (baseUrlEl) baseUrlEl.value = config.baseUrl || '';
+    if (keyEl) keyEl.value = config.apiKey || '';
+
+    // 更新模型预设
+    populateModelPreset(config.provider);
+    if (modelPresetEl) {
+      const models = API.PROVIDERS[config.provider]?.models || [];
+      if (models.includes(config.model)) {
+        modelPresetEl.value = config.model;
+        if (modelCustomEl) modelCustomEl.value = '';
+      } else {
+        modelPresetEl.value = '';
+        if (modelCustomEl) modelCustomEl.value = config.model || '';
+      }
+    }
+
+    updateBaseUrlHint(config.provider);
+  }
+
+  /** 根据服务商填充模型预设下拉 */
+  function populateModelPreset(providerId) {
+    const sel = document.getElementById('api-model-preset');
+    if (!sel) return;
+    const models = API.PROVIDERS[providerId]?.models || [];
+    sel.innerHTML = '<option value="">-- 选择预设模型 --</option>' +
+      models.map(m => `<option value="${m}">${m}</option>`).join('');
+  }
+
+  /** 更新 Base URL 提示 */
+  function updateBaseUrlHint(providerId) {
+    const hint = document.getElementById('hint-base-url');
+    if (!hint) return;
+    if (providerId && providerId !== 'custom') {
+      hint.textContent = '服务商预设已自动填充';
+    } else {
+      hint.textContent = '请输入兼容 OpenAI 格式的 API 地址';
     }
   }
 
@@ -551,11 +592,82 @@ const App = (() => {
       navigateTo('role-manage');
     });
 
-    // API Key 保存
-    document.getElementById('api-key-input')?.addEventListener('change', (e) => {
-      API.saveConfig({ apiKey: e.target.value });
-      showToast('API Key 已保存');
-      testApiConnection();
+    // ===== API 配置事件 =====
+
+    // 服务商切换
+    document.getElementById('api-provider')?.addEventListener('change', (e) => {
+      const providerId = e.target.value;
+      const p = API.PROVIDERS[providerId];
+      if (!p) return;
+
+      document.getElementById('api-base-url').value = p.baseUrl;
+      populateModelPreset(providerId);
+      updateBaseUrlHint(providerId);
+
+      // 自动选中第一个预设模型
+      if (p.models.length > 0) {
+        document.getElementById('api-model-preset').value = p.defaultModel;
+        document.getElementById('api-model-custom').value = '';
+      }
+    });
+
+    // 模型预设选择 → 清空自定义输入
+    document.getElementById('api-model-preset')?.addEventListener('change', (e) => {
+      if (e.target.value) {
+        document.getElementById('api-model-custom').value = '';
+      }
+    });
+
+    // 自定义模型输入 → 清空预设
+    document.getElementById('api-model-custom')?.addEventListener('input', (e) => {
+      if (e.target.value) {
+        document.getElementById('api-model-preset').value = '';
+      }
+    });
+
+    // 保存配置
+    document.getElementById('btn-save-api')?.addEventListener('click', () => {
+      const provider = document.getElementById('api-provider')?.value || 'deepseek';
+      const baseUrl = document.getElementById('api-base-url')?.value.trim() || '';
+      const apiKey = document.getElementById('api-key')?.value.trim() || '';
+      const modelPreset = document.getElementById('api-model-preset')?.value || '';
+      const modelCustom = document.getElementById('api-model-custom')?.value.trim() || '';
+      const model = modelCustom || modelPreset || API.PROVIDERS[provider]?.defaultModel || '';
+
+      if (!apiKey) {
+        showToast('请输入 API Key');
+        return;
+      }
+      if (!baseUrl) {
+        showToast('请输入 Base URL');
+        return;
+      }
+
+      API.saveConfig({ provider, baseUrl, apiKey, model });
+      showToast('配置已保存');
+
+      // 自动检测连接
+      setTimeout(() => testApiConnection(), 300);
+    });
+
+    // 检测连接
+    document.getElementById('btn-test-api')?.addEventListener('click', () => {
+      const baseUrl = document.getElementById('api-base-url')?.value.trim() || '';
+      const apiKey = document.getElementById('api-key')?.value.trim() || '';
+      const modelPreset = document.getElementById('api-model-preset')?.value || '';
+      const modelCustom = document.getElementById('api-model-custom')?.value.trim() || '';
+      const provider = document.getElementById('api-provider')?.value || 'deepseek';
+      const model = modelCustom || modelPreset || API.PROVIDERS[provider]?.defaultModel || '';
+
+      // 先用当前表单值测，不强制要求先保存
+      const testCfg = {
+        baseUrl,
+        apiKey,
+        model,
+        authHeader: API.PROVIDERS[provider]?.authHeader || 'Authorization',
+        authPrefix: API.PROVIDERS[provider]?.authPrefix || 'Bearer '
+      };
+      testApiConnection(testCfg);
     });
 
     // 点击其他地方关闭弹窗
@@ -577,20 +689,29 @@ const App = (() => {
     menu.dataset.bubbleIdx = bubble.dataset.msgIdx;
   }
 
-  async function testApiConnection() {
+  async function testApiConnection(cfg) {
     const statusEl = document.getElementById('api-status');
     if (!statusEl) return;
 
     statusEl.textContent = '检测中...';
     statusEl.className = 'status-badge';
 
-    const result = await API.testConnection();
+    const result = await API.testConnection(cfg);
     if (result.ok) {
       statusEl.textContent = '已连接';
       statusEl.className = 'status-badge online';
+      const model = cfg?.model || API.getConfig().model;
+      showToast(`连接成功${model ? ' — ' + model : ''}`);
     } else {
-      statusEl.textContent = result.error?.includes('401') ? 'Key 无效' : '无法连接';
+      if (result.status === 401 || result.error?.includes('401')) {
+        statusEl.textContent = 'Key 无效';
+      } else if (result.status === 404) {
+        statusEl.textContent = '地址错误(404)';
+      } else {
+        statusEl.textContent = result.error || '无法连接';
+      }
       statusEl.className = 'status-badge offline';
+      showToast('连接失败: ' + (result.error || `HTTP ${result.status}`));
     }
   }
 
@@ -601,8 +722,8 @@ const App = (() => {
     navigateTo('chat-list');
 
     // 加载时检测 API
-    if (API.getApiKey()) {
-      setTimeout(testApiConnection, 500);
+    if (API.getConfig().apiKey) {
+      setTimeout(() => testApiConnection(), 500);
     }
 
     console.log('RoleChat 初始化完成');
