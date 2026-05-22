@@ -47,8 +47,3 @@ RoleChat/
 2. 部署 `api/chat.js` 为 Serverless Function
 3. 静态文件部署至 Vercel / Netlify
 4. 访问公开 URL
-
-## 实验相关
-
-本项目为 UI 设计实验（一）功能图标设计与制作的课程作业载体。
-详见 `ui设计实验（一）指导书辅修.md` 和 `项目开发文档.md`。
