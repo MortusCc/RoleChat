@@ -14,40 +14,32 @@
   <g transform="translate(480, 500)" filter="url(#shadow)">
 
     <!-- R 竖线 → 直角梯形：上直角、下斜边、左长右短 -->
-    <!-- 梯形顶点：左上(-290,-320) 右上(-170,-320) 右下(-170,60) 左下(-290,140) -->
     <path d="
-      M -290 -320
-      L -170 -320
-      L -170 60
-      L -290 140
+      M -180 -330
+      L -130 -330
+      L -130 80
+      L -180 350
       Z
-    " fill="#FFFFFF"/>
-
-    <!-- 气泡尖角（梯形左下延伸） -->
-    <path d="
-      M -290 140
-      L -380 230
-      L -170 60
-    " fill="#FFFFFF"/>
+    "  fill="none" stroke="#FFFFFF" stroke-width="50" stroke-linecap="round" stroke-linejoin="round"/>
 
     <!-- R 的弧线头部 -->
     <path d="
-      M -70 -320
-      C 180 -320, 260 -200, 260 -50
-      C 260 70, 170 110, 40 110
-      L -70 110
+      M -130 -320
+      L 180 -320, 260 -200, 260 -50
+      L 260 70, 170 110, 40 110
+      L -130 110
     " fill="none" stroke="#FFFFFF" stroke-width="100" stroke-linecap="round" stroke-linejoin="round"/>
 
     <!-- R 的斜腿 -->
     <path d="
       M 40 110
-      L 280 260
+      L 280 320
     " stroke="#FFFFFF" stroke-width="100" stroke-linecap="round"/>
 
     <!-- 三圆点横向排列在 R 负空间内 -->
-    <circle cx="-20" cy="-60" r="20" fill="#FFFFFF" opacity="0.9"/>
-    <circle cx="40" cy="-60" r="20" fill="#FFFFFF" opacity="0.55"/>
-    <circle cx="100" cy="-60" r="20" fill="#FFFFFF" opacity="0.25"/>
+    <circle cx="-20" cy="-90" r="20" fill="#FFFFFF" opacity="0.9"/>
+    <circle cx="40" cy="-90" r="20" fill="#FFFFFF" opacity="0.55"/>
+    <circle cx="100" cy="-90" r="20" fill="#FFFFFF" opacity="0.25"/>
 
   </g>
 </svg>
