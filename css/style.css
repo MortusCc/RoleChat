@@ -83,6 +83,13 @@ body {
   gap: 8px;
 }
 
+.app-logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
 .top-bar h1 {
   font-size: 1.1rem;
   font-weight: 600;
