@@ -1,45 +1,48 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
   <defs>
-    <!-- 背景渐变 -->
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#1557B0"/>
       <stop offset="100%" stop-color="#2B7DE1"/>
     </linearGradient>
-
-    <!-- 前景RG字母投影 -->
     <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
       <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#0A3060" flood-opacity="0.3"/>
     </filter>
   </defs>
 
-  <!-- 圆角方形背景 (iOS 风格, 约 22% 圆角) -->
+  <!-- 背景 -->
   <rect x="0" y="0" width="1024" height="1024" rx="225" ry="225" fill="url(#bg)"/>
 
-  <!-- RC 字形主体 -->
-  <g transform="translate(512, 500)" filter="url(#shadow)">
+  <g transform="translate(480, 500)" filter="url(#shadow)">
 
-    <!-- 字母 R：竖线 + 弧线头 + 斜腿 -->
-    <!-- R 的竖线 -->
-    <rect x="-230" y="-300" width="100" height="540" rx="40" fill="#FFFFFF"/>
-
-    <!-- R 的头部弧线 -->
+    <!-- R 的竖线 → 气泡尖角（左下侧） -->
     <path d="
-      M -130 -300
-      C 120 -300, 220 -200, 220 -80
-      C 220 20, 150 80, 40 80
-      L -130 80
-    " fill="none" stroke="#FFFFFF" stroke-width="100" stroke-linecap="round" stroke-linejoin="round"/>
-
-    <!-- R 的斜腿 -->
+      M -260 40
+      L -260 -320
+    " stroke="#FFFFFF" stroke-width="100" stroke-linecap="round"/>
+    <!-- 尖角三角 -->
     <path d="
-      M 40 80
-      L 280 240
+      M -260 40
+      L -360 150
     " stroke="#FFFFFF" stroke-width="100" stroke-linecap="round"/>
 
-    <!-- 小圆点装饰（对话隐喻） -->
-    <circle cx="280" cy="-40" r="16" fill="#FFFFFF" opacity="0.9"/>
-    <circle cx="280" cy="20" r="16" fill="#FFFFFF" opacity="0.55"/>
-    <circle cx="280" cy="80" r="16" fill="#FFFFFF" opacity="0.25"/>
+    <!-- R 的弧线头部 -->
+    <path d="
+      M -160 -320
+      C 140 -320, 240 -200, 240 -60
+      C 240 60, 150 100, 10 100
+      L -160 100
+    " fill="none" stroke="#FFFFFF" stroke-width="100" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- R 的斜腿（保持不变） -->
+    <path d="
+      M 10 100
+      L 280 260
+    " stroke="#FFFFFF" stroke-width="100" stroke-linecap="round"/>
+
+    <!-- 三圆点在 R 内部负空间（对话气泡隐喻） -->
+    <circle cx="-60" cy="-180" r="22" fill="#FFFFFF" opacity="0.9"/>
+    <circle cx="-60" cy="-90" r="22" fill="#FFFFFF" opacity="0.55"/>
+    <circle cx="-60" cy="0" r="22" fill="#FFFFFF" opacity="0.25"/>
 
   </g>
 </svg>
