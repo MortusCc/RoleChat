@@ -1,87 +1,45 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
   <defs>
-    <!-- 背景渐变：深蓝→亮蓝 -->
-    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <!-- 背景渐变 -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#1557B0"/>
-      <stop offset="50%" stop-color="#1A73E8"/>
-      <stop offset="100%" stop-color="#2B8DF0"/>
+      <stop offset="100%" stop-color="#2B7DE1"/>
     </linearGradient>
 
-    <!-- 前景渐变 -->
-    <linearGradient id="fgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#FFFFFF"/>
-      <stop offset="100%" stop-color="#E8F2FF"/>
-    </linearGradient>
-
-    <!-- 气泡阴影 -->
-    <filter id="bubbleShadow" x="-20%" y="-10%" width="140%" height="130%">
-      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#0A3A6B" flood-opacity="0.35"/>
-    </filter>
-
-    <!-- 气泡内发光 -->
-    <filter id="innerGlow" x="-10%" y="-10%" width="120%" height="120%">
-      <feGaussianBlur in="SourceAlpha" stdDeviation="6" result="blur"/>
-      <feOffset dx="0" dy="-4" result="offset"/>
-      <feComposite in="SourceGraphic" in2="offset" operator="over"/>
+    <!-- 前景RG字母投影 -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#0A3060" flood-opacity="0.3"/>
     </filter>
   </defs>
 
-  <!-- 圆角方形背景（iOS 风格圆角） -->
-  <rect x="0" y="0" width="1024" height="1024" rx="224" ry="224" fill="url(#bgGrad)"/>
+  <!-- 圆角方形背景 (iOS 风格, 约 22% 圆角) -->
+  <rect x="0" y="0" width="1024" height="1024" rx="225" ry="225" fill="url(#bg)"/>
 
-  <!-- 对话气泡主体 -->
-  <g filter="url(#bubbleShadow)">
-    <path d="
-      M 280 340
-      C 280 280, 320 240, 380 240
-      L 644 240
-      C 704 240, 744 280, 744 340
-      L 744 560
-      C 744 620, 704 660, 644 660
-      L 380 660
-      C 340 660, 300 640, 280 600
-      Z
-    " fill="url(#fgGrad)" stroke="none"/>
+  <!-- RC 字形主体 -->
+  <g transform="translate(512, 500)" filter="url(#shadow)">
 
-    <!-- 气泡尖角（左侧冒出） -->
+    <!-- 字母 R：竖线 + 弧线头 + 斜腿 -->
+    <!-- R 的竖线 -->
+    <rect x="-230" y="-300" width="100" height="540" rx="40" fill="#FFFFFF"/>
+
+    <!-- R 的头部弧线 -->
     <path d="
-      M 280 520
-      L 200 580
-      L 280 600
-      Z
-    " fill="url(#fgGrad)" stroke="none"/>
+      M -130 -300
+      C 120 -300, 220 -200, 220 -80
+      C 220 20, 150 80, 40 80
+      L -130 80
+    " fill="none" stroke="#FFFFFF" stroke-width="100" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- R 的斜腿 -->
+    <path d="
+      M 40 80
+      L 280 240
+    " stroke="#FFFFFF" stroke-width="100" stroke-linecap="round"/>
+
+    <!-- 小圆点装饰（对话隐喻） -->
+    <circle cx="280" cy="-40" r="16" fill="#FFFFFF" opacity="0.9"/>
+    <circle cx="280" cy="20" r="16" fill="#FFFFFF" opacity="0.55"/>
+    <circle cx="280" cy="80" r="16" fill="#FFFFFF" opacity="0.25"/>
+
   </g>
-
-  <!-- 角色面具轮廓（负空间设计） -->
-  <g opacity="0.22">
-    <!-- 面具脸部 -->
-    <path d="
-      M 400 380
-      C 420 340, 460 320, 512 320
-      C 564 320, 604 340, 624 380
-    " fill="none" stroke="#1557B0" stroke-width="20" stroke-linecap="round"/>
-
-    <!-- 左眼 -->
-    <ellipse cx="468" cy="400" rx="22" ry="28" fill="#1557B0"/>
-    <!-- 右眼 -->
-    <ellipse cx="556" cy="400" rx="22" ry="28" fill="#1557B0"/>
-
-    <!-- 微笑嘴 -->
-    <path d="
-      M 472 460
-      Q 512 510, 552 460
-    " fill="none" stroke="#1557B0" stroke-width="14" stroke-linecap="round"/>
-  </g>
-
-  <!-- 趣味元素：右上角小星点（暗示 AI） -->
-  <g opacity="0.6">
-    <path d="M 640 290 L 648 275 L 656 290 L 672 292 L 660 304 L 664 320 L 648 312 L 632 320 L 636 304 L 624 292 Z"
-          fill="#FFFFFF"/>
-  </g>
-
-  <!-- 底部 RC 小字（品牌标识） -->
-  <text x="512" y="860" text-anchor="middle"
-        font-family="system-ui, -apple-system, sans-serif"
-        font-size="120" font-weight="800" letter-spacing="16"
-        fill="#FFFFFF" opacity="0.35">RC</text>
 </svg>
