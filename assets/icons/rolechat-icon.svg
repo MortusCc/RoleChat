@@ -9,40 +9,45 @@
     </filter>
   </defs>
 
-  <!-- 背景 -->
   <rect x="0" y="0" width="1024" height="1024" rx="225" ry="225" fill="url(#bg)"/>
 
   <g transform="translate(480, 500)" filter="url(#shadow)">
 
-    <!-- R 的竖线 → 气泡尖角（左下侧） -->
+    <!-- R 竖线 → 直角梯形：上直角、下斜边、左长右短 -->
+    <!-- 梯形顶点：左上(-290,-320) 右上(-170,-320) 右下(-170,60) 左下(-290,140) -->
     <path d="
-      M -260 40
-      L -260 -320
-    " stroke="#FFFFFF" stroke-width="100" stroke-linecap="round"/>
-    <!-- 尖角三角 -->
+      M -290 -320
+      L -170 -320
+      L -170 60
+      L -290 140
+      Z
+    " fill="#FFFFFF"/>
+
+    <!-- 气泡尖角（梯形左下延伸） -->
     <path d="
-      M -260 40
-      L -360 150
-    " stroke="#FFFFFF" stroke-width="100" stroke-linecap="round"/>
+      M -290 140
+      L -380 230
+      L -170 60
+    " fill="#FFFFFF"/>
 
     <!-- R 的弧线头部 -->
     <path d="
-      M -160 -320
-      C 140 -320, 240 -200, 240 -60
-      C 240 60, 150 100, 10 100
-      L -160 100
+      M -70 -320
+      C 180 -320, 260 -200, 260 -50
+      C 260 70, 170 110, 40 110
+      L -70 110
     " fill="none" stroke="#FFFFFF" stroke-width="100" stroke-linecap="round" stroke-linejoin="round"/>
 
-    <!-- R 的斜腿（保持不变） -->
+    <!-- R 的斜腿 -->
     <path d="
-      M 10 100
+      M 40 110
       L 280 260
     " stroke="#FFFFFF" stroke-width="100" stroke-linecap="round"/>
 
-    <!-- 三圆点在 R 内部负空间（对话气泡隐喻） -->
-    <circle cx="-60" cy="-180" r="22" fill="#FFFFFF" opacity="0.9"/>
-    <circle cx="-60" cy="-90" r="22" fill="#FFFFFF" opacity="0.55"/>
-    <circle cx="-60" cy="0" r="22" fill="#FFFFFF" opacity="0.25"/>
+    <!-- 三圆点横向排列在 R 负空间内 -->
+    <circle cx="-20" cy="-60" r="20" fill="#FFFFFF" opacity="0.9"/>
+    <circle cx="40" cy="-60" r="20" fill="#FFFFFF" opacity="0.55"/>
+    <circle cx="100" cy="-60" r="20" fill="#FFFFFF" opacity="0.25"/>
 
   </g>
 </svg>
