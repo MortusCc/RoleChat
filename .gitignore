@@ -46,6 +46,7 @@ venv/
 
 #辅助代码
 convert-svg.js
+gen-icon-png.js
 
 #agent
 .codewhale/
